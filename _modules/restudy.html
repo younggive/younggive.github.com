@@ -1,0 +1,245 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>restudy &mdash; worktry 1.0.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="worktry 1.0.0 documentation" href="../index.html" />
+    <link rel="up" title="Module code" href="index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../index.html">worktry 1.0.0 documentation</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Module code</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <h1>Source code for restudy</h1><div class="highlight"><pre>
+<span class="c"># -- coding: utf-8 --</span>
+<span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">from</span> <span class="nn">lxml</span> <span class="kn">import</span> <span class="n">etree</span>
+
+
+<span class="c"># ---------------------------------------------------------------</span>
+<span class="c"># LOG:</span>
+<span class="c">#</span>
+<span class="c"># TODO :</span>
+<span class="c">#    1. need optimization</span>
+<span class="c"># MEMO:</span>
+<span class="c">#</span>
+<span class="c"># DNF:</span>
+
+<span class="c"># reg sets</span>
+<span class="n">reg_card</span>     <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s">r&#39;(?&lt;=sec-content0&quot;)([\s \S]*)(?=class=&quot;text_dir)&#39;</span><span class="p">)</span>
+<span class="n">reg_category</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s">r&#39;(?&lt;=/fenlei/)(?:.*?&gt;)(.*?)(?=&lt;/a)&#39;</span><span class="p">)</span>
+<span class="n">reg_ID</span>       <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s">r&#39;(?&lt;=\?lemmaid=).*?(?=&quot;)&#39;</span><span class="p">)</span>
+<span class="n">reg_PIC</span>      <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s">r&#39;(?&lt;=card-image)(?:.*?)(http.*?)&quot;&#39;</span><span class="p">)</span>   <span class="c"># ??? PIC.group(0).split(&#39;src=&quot;&#39;)[1]</span>
+<span class="n">reg_SUM</span>      <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s">r&#39;(?&lt;=card-summary-content&quot;&gt;&lt;p&gt; ).*?(?=&lt;/p&gt;)&#39;</span><span class="p">)</span>
+<span class="n">reg_NAME</span>     <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s">r&#39;(?&lt;=h1)(?:.*&gt;)(.*?)(?=&lt;\/h1&gt;)&#39;</span><span class="p">)</span>
+<span class="n">reg_INFO1</span>    <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s">r&#39;(?&lt;=cardFirstTd&quot;&gt;).*?(?=&lt;\/td&gt;)&#39;</span><span class="p">)</span>
+<span class="n">reg_INFO2</span>    <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s">r&#39;(?&lt;=cardSecondTd&quot;&gt;).*?(?=&lt;\/td&gt;)&#39;</span><span class="p">)</span>
+<span class="n">reg_rm_a</span>     <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s">r&#39;&lt;a .*?&gt;|&lt;\/a&gt;&#39;</span><span class="p">)</span>     <span class="c"># reg &lt;a&gt;&lt;/a&gt; in a string</span>
+<span class="n">reg_rm_s</span>     <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s">r&#39;(^\s*)|(\s*$)&#39;</span><span class="p">)</span>     <span class="c"># reg the spaces at the start &amp; end of a string</span>
+
+
+<span class="k">class</span> <span class="nc">bkCard</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">attr</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;lm&#39;</span><span class="p">:</span> <span class="p">(</span><span class="s">&#39;name&#39;</span><span class="p">),</span>
+                    <span class="s">&#39;terms&#39;</span><span class="p">:</span> <span class="p">(</span><span class="s">&#39;t_name&#39;</span><span class="p">)}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tree</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;lm&#39;</span><span class="p">:</span> <span class="p">(</span><span class="s">&#39;url&#39;</span><span class="p">,</span> <span class="s">&#39;category&#39;</span><span class="p">,</span> <span class="s">&#39;summary&#39;</span><span class="p">,</span> <span class="s">&#39;pic&#39;</span><span class="p">,</span> <span class="s">&#39;info&#39;</span><span class="p">),</span>
+                    <span class="s">&#39;info&#39;</span><span class="p">:</span> <span class="p">(</span><span class="s">&#39;terms&#39;</span><span class="p">)}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lable</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;url&#39;</span><span class="p">:</span> <span class="s">&#39;&#39;</span><span class="p">,</span>
+                    <span class="s">&#39;name&#39;</span><span class="p">:</span> <span class="s">&#39;&#39;</span><span class="p">,</span>
+                    <span class="s">&#39;pic&#39;</span><span class="p">:</span> <span class="s">&#39;&#39;</span><span class="p">,</span>
+                    <span class="s">&#39;summary&#39;</span><span class="p">:</span> <span class="s">&#39;&#39;</span><span class="p">,</span>
+                    <span class="s">&#39;t_name&#39;</span><span class="p">:</span> <span class="p">[],</span>
+                    <span class="s">&#39;t_text&#39;</span><span class="p">:</span> <span class="p">[]}</span>
+
+    <span class="k">def</span> <span class="nf">extraction</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stuff</span><span class="p">):</span>
+       <span class="c"># x = process_value(reg_category.findall(stuff))</span>
+       <span class="c"># self.lable[&#39;category&#39;] = &#39;;&#39;.join(x)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lable</span><span class="p">[</span><span class="s">&#39;url&#39;</span><span class="p">]</span>      <span class="o">=</span> <span class="n">process_value</span><span class="p">(</span><span class="n">reg_ID</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">stuff</span><span class="p">))</span>                          <span class="c"># extract ID</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lable</span><span class="p">[</span><span class="s">&#39;url&#39;</span><span class="p">]</span>      <span class="o">=</span> <span class="s">&quot;http://baike.baidu.com/view/&quot;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">lable</span><span class="p">[</span><span class="s">&#39;url&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="s">&quot;.html&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lable</span><span class="p">[</span><span class="s">&#39;pic&#39;</span><span class="p">]</span>      <span class="o">=</span> <span class="n">process_value</span><span class="p">(</span><span class="n">reg_PIC</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">stuff</span><span class="p">))</span>                         <span class="c"># extract picture</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lable</span><span class="p">[</span><span class="s">&#39;summary&#39;</span><span class="p">]</span>  <span class="o">=</span> <span class="n">process_value</span><span class="p">(</span><span class="n">reg_SUM</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">stuff</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lable</span><span class="p">[</span><span class="s">&#39;summary&#39;</span><span class="p">]</span>  <span class="o">=</span> <span class="n">reg_rm_a</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s">&#39;&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">lable</span><span class="p">[</span><span class="s">&#39;summary&#39;</span><span class="p">])</span>                  <span class="c"># extract summary</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lable</span><span class="p">[</span><span class="s">&#39;name&#39;</span><span class="p">]</span>     <span class="o">=</span> <span class="n">process_value</span><span class="p">(</span><span class="n">reg_NAME</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">stuff</span><span class="p">))</span>                       <span class="c"># extract name</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lable</span><span class="p">[</span><span class="s">&#39;t_name&#39;</span><span class="p">]</span>   <span class="o">=</span> <span class="n">process_value</span><span class="p">(</span><span class="n">reg_INFO1</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">stuff</span><span class="p">))</span>             <span class="c"># extract info terms</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lable</span><span class="p">[</span><span class="s">&#39;info&#39;</span><span class="p">]</span>     <span class="o">=</span> <span class="s">&#39;&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lable</span><span class="p">[</span><span class="s">&#39;t_text&#39;</span><span class="p">]</span>   <span class="o">=</span> <span class="n">process_value</span><span class="p">(</span><span class="n">reg_INFO2</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">stuff</span><span class="p">))</span>             <span class="c"># extract info text</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lable</span><span class="p">[</span><span class="s">&#39;t_text&#39;</span><span class="p">]</span>   <span class="o">=</span> <span class="p">[</span><span class="n">reg_rm_a</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s">&#39;&#39;</span><span class="p">,</span> <span class="n">elem</span><span class="p">)</span> <span class="k">for</span> <span class="n">elem</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">lable</span><span class="p">[</span><span class="s">&#39;t_text&#39;</span><span class="p">]]</span>
+
+
+<div class="viewcode-block" id="indent"><a class="viewcode-back" href="../code.html#restudy.indent">[docs]</a><span class="k">def</span> <span class="nf">indent</span><span class="p">(</span><span class="n">elem</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Get pretty look&quot;&quot;&quot;</span>
+
+    <span class="n">i</span> <span class="o">=</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span> <span class="o">+</span> <span class="n">level</span> <span class="o">*</span> <span class="s">&quot;  &quot;</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">elem</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">elem</span><span class="o">.</span><span class="n">text</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">elem</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">strip</span><span class="p">():</span>
+            <span class="n">elem</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="s">&quot;  &quot;</span>
+        <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">elem</span><span class="p">:</span>
+            <span class="n">indent</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="n">level</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">e</span><span class="o">.</span><span class="n">tail</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">e</span><span class="o">.</span><span class="n">tail</span><span class="o">.</span><span class="n">strip</span><span class="p">():</span>
+            <span class="n">e</span><span class="o">.</span><span class="n">tail</span> <span class="o">=</span> <span class="n">i</span>
+    <span class="k">if</span> <span class="n">level</span> <span class="ow">and</span> <span class="p">(</span><span class="ow">not</span> <span class="n">elem</span><span class="o">.</span><span class="n">tail</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">elem</span><span class="o">.</span><span class="n">tail</span><span class="o">.</span><span class="n">strip</span><span class="p">()):</span>
+        <span class="n">elem</span><span class="o">.</span><span class="n">tail</span> <span class="o">=</span> <span class="n">i</span>
+    <span class="k">return</span> <span class="n">elem</span>
+
+</div>
+<span class="k">def</span> <span class="nf">process_value</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">x</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s">&#39;&#39;</span>
+    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="p">[</span><span class="n">reg_rm_s</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s">&#39;&#39;</span><span class="p">,</span> <span class="n">elem</span><span class="p">)</span> <span class="k">for</span> <span class="n">elem</span> <span class="ow">in</span> <span class="n">x</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">x</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="n">groups</span><span class="p">():</span>
+            <span class="k">return</span> <span class="n">reg_rm_s</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s">&#39;&#39;</span><span class="p">,</span> <span class="n">x</span><span class="o">.</span><span class="n">groups</span><span class="p">()[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">reg_rm_s</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s">&#39;&#39;</span><span class="p">,</span> <span class="n">x</span><span class="o">.</span><span class="n">group</span><span class="p">())</span>
+
+
+<span class="k">def</span> <span class="nf">xml_form</span><span class="p">(</span><span class="n">card</span><span class="p">,</span> <span class="n">root</span><span class="p">,</span> <span class="n">d</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;&quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="n">d</span> <span class="o">==</span> <span class="s">&#39;lm&#39;</span><span class="p">:</span>
+        <span class="n">root</span> <span class="o">=</span> <span class="n">etree</span><span class="o">.</span><span class="n">SubElement</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="s">&#39;lm&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">card</span><span class="o">.</span><span class="n">attr</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">card</span><span class="o">.</span><span class="n">attr</span><span class="p">[</span><span class="n">d</span><span class="p">]:</span>
+                <span class="n">root</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">card</span><span class="o">.</span><span class="n">lable</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s">&#39;utf-8&#39;</span><span class="p">))</span>
+    <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">card</span><span class="o">.</span><span class="n">tree</span><span class="p">[</span><span class="n">d</span><span class="p">]:</span>
+        <span class="k">if</span> <span class="n">x</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s">&#39;s&#39;</span><span class="p">:</span>
+            <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">card</span><span class="o">.</span><span class="n">attr</span><span class="p">[</span><span class="n">x</span><span class="p">]:</span>
+                <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">card</span><span class="o">.</span><span class="n">lable</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
+                    <span class="n">child</span> <span class="o">=</span> <span class="n">etree</span><span class="o">.</span><span class="n">SubElement</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+                    <span class="n">child</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s">&#39;utf-8&#39;</span><span class="p">))</span>
+                    <span class="n">child</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="n">card</span><span class="o">.</span><span class="n">lable</span><span class="p">[</span><span class="s">&#39;text&#39;</span><span class="p">][</span><span class="n">count</span><span class="p">]</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s">&#39;utf-8&#39;</span><span class="p">)</span>
+                    <span class="n">count</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">child</span> <span class="o">=</span> <span class="n">etree</span><span class="o">.</span><span class="n">SubElement</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">card</span><span class="o">.</span><span class="n">lable</span><span class="p">[</span><span class="n">x</span><span class="p">]:</span>
+                <span class="n">child</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="n">card</span><span class="o">.</span><span class="n">lable</span><span class="p">[</span><span class="n">x</span><span class="p">]</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s">&#39;utf-8&#39;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">card</span><span class="o">.</span><span class="n">tree</span><span class="p">:</span>
+                <span class="n">child</span> <span class="o">=</span> <span class="n">xml_form</span><span class="p">(</span><span class="n">card</span><span class="p">,</span> <span class="n">child</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">root</span>
+
+
+<span class="c"># extract CARD information</span>
+<span class="k">def</span> <span class="nf">extract_card</span><span class="p">(</span><span class="n">stuff</span><span class="p">):</span>
+    <span class="n">card</span> <span class="o">=</span> <span class="n">bkCard</span><span class="p">()</span>
+    <span class="n">card</span><span class="o">.</span><span class="n">extraction</span><span class="p">(</span><span class="n">stuff</span><span class="p">)</span>
+    <span class="n">doc</span> <span class="o">=</span> <span class="n">etree</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s">&#39;feed.xml&#39;</span><span class="p">)</span>
+    <span class="n">root</span> <span class="o">=</span> <span class="n">doc</span><span class="o">.</span><span class="n">getroot</span><span class="p">()</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">doc</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s">&quot;//lm[@name=$name]&quot;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">card</span><span class="o">.</span><span class="n">lable</span><span class="p">[</span><span class="s">&#39;name&#39;</span><span class="p">]):</span>
+        <span class="k">print</span> <span class="n">card</span><span class="o">.</span><span class="n">lable</span><span class="p">[</span><span class="s">&#39;name&#39;</span><span class="p">]</span>
+        <span class="n">xml_form</span><span class="p">(</span><span class="n">card</span><span class="p">,</span> <span class="n">root</span><span class="p">,</span> <span class="s">&#39;lm&#39;</span><span class="p">)</span>
+    <span class="n">etree</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">indent</span><span class="p">(</span><span class="n">root</span><span class="p">))</span>
+    <span class="n">doc</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&#39;feed.xml&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s">&#39;utf-8&#39;</span><span class="p">)</span>
+<span class="c">#    print card.lable</span>
+    <span class="k">return</span> <span class="mi">1</span>
+
+
+<div class="viewcode-block" id="extract"><a class="viewcode-back" href="../code.html#restudy.extract">[docs]</a><span class="k">def</span> <span class="nf">extract</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">startOffset</span><span class="p">,</span> <span class="n">endOffset</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;start extraction&quot;&quot;&quot;</span>
+
+    <span class="k">while</span> <span class="n">startOffset</span> <span class="o">&lt;=</span> <span class="n">endOffset</span><span class="p">:</span>
+        <span class="n">p</span> <span class="o">=</span> <span class="n">path</span> <span class="o">+</span> <span class="s">&#39;/&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">startOffset</span><span class="p">)</span> <span class="o">+</span> <span class="s">&#39;.htm&#39;</span>
+        <span class="n">f</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">p</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s">&#39;gb2312&#39;</span><span class="p">,</span> <span class="s">&#39;ignore&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s">&#39;utf-8&#39;</span><span class="p">)</span>
+<span class="c">#       stuff = reg_card.search(f)</span>
+       <span class="c"># print startOffset</span>
+        <span class="n">extract_card</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+<span class="c">#        extract_card(stuff.group(0))</span>
+        <span class="n">startOffset</span> <span class="o">+=</span> <span class="mi">1</span>
+</div>
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="s">&#39;/Users/younggive/Sites/grab&#39;</span>    <span class="c"># test-use</span>
+    <span class="n">extract</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+
+
+
+<span class="c"># test</span>
+<span class="c"># p = path + &#39;/2.htm&#39;</span>
+<span class="c"># f = open(p).read().decode(&#39;gb2312&#39;).encode(&#39;utf-8&#39;)</span>
+<span class="c"># a = reg_card.search(f)</span>
+<span class="c"># x = open(&#39;xxx.txt&#39;, &#39;wb&#39;)</span>
+<span class="c"># x.write(a.group(0))</span>
+<span class="c"># x.close()</span>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../index.html">worktry 1.0.0 documentation</a> &raquo;</li>
+          <li><a href="index.html" >Module code</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2012, Rowy.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>
