@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Place for knowledge]]></title>
-  <link href="http://wiki.rowy.me/atom.xml" rel="self"/>
+  <title><![CDATA[Category: octopress | Place for knowledge]]></title>
+  <link href="http://wiki.rowy.me/blog/categories/octopress/atom.xml" rel="self"/>
   <link href="http://wiki.rowy.me/"/>
   <updated>2013-03-16T11:58:08+08:00</updated>
   <id>http://wiki.rowy.me/</id>
@@ -12,19 +12,6 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
-  
-  <entry>
-    <title type="html"><![CDATA[Markdown + R]]></title>
-    <link href="http://wiki.rowy.me/blog/2013/03/16/markdown-plus-r/"/>
-    <updated>2013-03-16T10:51:00+08:00</updated>
-    <id>http://wiki.rowy.me/blog/2013/03/16/markdown-plus-r</id>
-    <content type="html"><![CDATA[<p>在<a href="http://www.v2ex.com">V2EX</a>社区看到了以前有人讨论过的用<code>Markdown+R</code>进行科技文章写作的方法。对Markdown的应用已经很熟悉了，但是R语言还很陌生。前几天在分析DTM提取topic model时现学了一点点R语言，感觉异常强大，也因此对<code>Markdown+R</code>这个组合代替LaTeX颇感兴趣。</p>
-
-<h1>Installation</h1>
-
-<p>总体上参照这篇文章：<a href="http://www.yangzhiping.com/tech/r-markdown-knitr.html">阳志平: 科技写作与Markdown+R</a></p>
-]]></content>
-  </entry>
   
   <entry>
     <title type="html"><![CDATA[my first blog]]></title>

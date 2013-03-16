@@ -1,4 +1,4 @@
 User-agent: *
 Disallow: 
 
-Sitemap: http://younggive.github.com/sitemap.xml 
+Sitemap: http://wiki.rowy.me/sitemap.xml 

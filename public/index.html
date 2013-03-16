@@ -5,12 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>My Octopress Blog</title>
-  <meta name="author" content="Your Name">
+  <title>Place for knowledge</title>
+  <meta name="author" content="Rowy">
 
   
-  <meta name="description" content="
-">
+  <meta name="description" content="在V2EX社区看到了以前有人讨论过的用Markdown+R进行科技文章写作的方法。对Markdown的应用已经很熟悉了，但是R语言还很陌生。前几天在分析DTM提取topic model时现学了一点点R语言，感觉异常强大，也因此对Markdown+R这个组合代替LaTeX颇感兴趣。 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -19,10 +18,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://younggive.github.com">
+  <link rel="canonical" href="http://wiki.rowy.me">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-  <link href="/atom.xml" rel="alternate" title="My Octopress Blog" type="application/atom+xml">
+  <link href="/atom.xml" rel="alternate" title="Place for knowledge" type="application/atom+xml">
   <script src="/javascripts/modernizr-2.0.js"></script>
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
   <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
@@ -37,9 +36,9 @@
 
 <body   >
   <header role="banner"><hgroup>
-  <h1><a href="/">My Octopress Blog</a></h1>
+  <h1><a href="/">Place for knowledge</a></h1>
   
-    <h2>A blogging framework for hackers.</h2>
+    <h2>Personal wiki</h2>
   
 </hgroup>
 
@@ -51,7 +50,7 @@
   
 <form action="http://google.com/search" method="get">
   <fieldset role="search">
-    <input type="hidden" name="q" value="site:younggive.github.com" />
+    <input type="hidden" name="q" value="site:wiki.rowy.me" />
     <input class="search" type="text" name="q" results="0" placeholder="Search"/>
   </fieldset>
 </form>
@@ -66,6 +65,46 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/03/16/markdown-plus-r/">Markdown + R</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-03-16T10:51:00+08:00" pubdate data-updated="true">Mar 16<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>在<a href="http://www.v2ex.com">V2EX</a>社区看到了以前有人讨论过的用<code>Markdown+R</code>进行科技文章写作的方法。对Markdown的应用已经很熟悉了，但是R语言还很陌生。前几天在分析DTM提取topic model时现学了一点点R语言，感觉异常强大，也因此对<code>Markdown+R</code>这个组合代替LaTeX颇感兴趣。</p>
+
+<h1>Installation</h1>
+
+<p>总体上参照这篇文章：<a href="http://www.yangzhiping.com/tech/r-markdown-knitr.html">阳志平: 科技写作与Markdown+R</a></p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -95,7 +134,73 @@
   </header>
 
 
-  <div class="entry-content">
+  <div class="entry-content"><p>本来是想折腾一个个人技术wiki的，结果不小心看上了Octopress。之前就在Lucifr的个人博客上看到他各种折腾Octopress，现在先用一段看看。</p>
+
+<p>因为在自己的Godaddy空间上折腾ruby， octopress， git之类的太麻烦，因为尝试了一下很流行的在github pages上部署octopress的方法。具体方法其实Octopress官网的文档介绍的很清楚，详见<a href="http://octopress.org/docs/deploying/github/">Deploying to Github Pages</a></p>
+
+<blockquote><p>其实<a href="http://javier.pedemonte.us/blog/2011/10/31/setup-octopress-on-godaddy/">Setup Octopress to Godaddy</a>的方法也有，但现在真心觉得godaddy太慢，不爱用。</p></blockquote>
+
+<h1>I. Github Pages</h1>
+
+<p>在Github上新建一个repository，名字就是<code>username.github.com</code>，username即Github用户名，然后保存为master branch。这样几分钟后，在浏览器访问这个域名即可。</p>
+
+<p>img http://younggive.github.com/images/githubpage_initial.png</p>
+
+<p>至此，Github Pages初始配置完成。</p>
+
+<h1>II. Octopress</h1>
+
+<h2>Before You Begin</h2>
+
+<ol>
+<li>Install Git</li>
+<li>Install Ruby 1.9.3 using either rbenv or RVM (this requires brew/Macports on Mac)</li>
+</ol>
+
+
+<h2>Setup Octopress</h2>
+
+<pre><code>git clone git://github.com/imathis/octopress.git my_blog
+cd my_blog      # If you use RVM, You'll be asked if you trust the .rvmrc file (say yes)
+ruby --version  # Should report Ruby 1.9.3
+</code></pre>
+
+<p>其中<code>my_blog</code>文件夹即刚才创建的<code>username.github.com</code>的本地文件家。
+这里直接通过git把octopress下载到博客所在文件夹的话可能引起octopress的repository信息和<code>username.github.com</code>信息冲突的问题，故可以先git clone到一个临时文件夹，然后将此临时文件夹下的内容全部拷贝到my_blog文件夹下，然后再进行<code>cd my_blog</code>等步骤。</p>
+
+<p>下一步安装依赖包</p>
+
+<pre><code>gem install bundler
+rbenv rehash # Necessary if used rbenv
+bundle install
+</code></pre>
+
+<p>安装Octopress主题</p>
+
+<pre><code>rake install
+</code></pre>
+
+<h2>Deploy Octopress to Github</h2>
+
+<pre><code>rake setup_github_pages
+</code></pre>
+
+<p>这个命令将询问你Github Pages repository的url，按照提示信息的格式输入。</p>
+
+<p>下一步运行：</p>
+
+<pre><code>rake generate
+rake deploy
+</code></pre>
+
+<p>随后，将生成博客的静态页面并被放置到<code>_deploy/</code>下面，并且完成git commit/git push命令到master branch</p>
+
+<p>最后一步，由于<code>rake deploy</code>命令只是将<code>_deploy/</code>文件夹下生成的网站发布了，如果想要commit博客的source code，还需要</p>
+
+<pre><code>git add .
+git commit -m 'your message'
+git push origin source
+</code></pre>
 </div>
   
   
@@ -116,10 +221,43 @@
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2013/03/16/markdown-plus-r/">Markdown + R</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2013/03/15/my-first-blog/">my first blog</a>
       </li>
     
   </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  
+  <a href="https://github.com/younggive">@younggive</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'younggive',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
 </section>
 
 
@@ -132,7 +270,7 @@
     </div>
   </div>
   <footer role="contentinfo"><p>
-  Copyright &copy; 2013 - Your Name -
+  Copyright &copy; 2013 - Rowy -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 </p>
 
