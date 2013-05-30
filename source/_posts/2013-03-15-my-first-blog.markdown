@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "my first blog"
+title: "在Github Pages上使用Octopress"
 date: 2013-03-15 21:05
 comments: true
 categories: octopress
@@ -15,7 +15,7 @@ categories: octopress
 
 在Github上新建一个repository，名字就是`username.github.com`，username即Github用户名，然后保存为master branch。这样几分钟后，在浏览器访问这个域名即可。  
 
-img http://younggive.github.com/images/githubpage_initial.png  
+![](http://younggive.github.com/images/githubpage_initial.png)  
 
 至此，Github Pages初始配置完成。
 
@@ -51,7 +51,10 @@ img http://younggive.github.com/images/githubpage_initial.png
 
     rake setup_github_pages
 
-这个命令将询问你Github Pages repository的url，按照提示信息的格式输入。
+这个命令将询问你Github Pages repository的url，按照提示信息的格式:  
+"git@github.com:username/username.github.com.git"
+
+当这个命令运行完成之后，你的github pages repo会有两个branches: master branch用于静态页面的发布("my_blog/_deploy"的内容)，source branch用于保存你的blog内容（"my_blog"目录中除了"_deploy"的其它内容）
 
 下一步运行：
 

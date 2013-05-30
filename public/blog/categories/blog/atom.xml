@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: blog | Place for knowledge]]></title>
+  <link href="http://younggive.github.com/blog/categories/blog/atom.xml" rel="self"/>
+  <link href="http://younggive.github.com/"/>
+  <updated>2013-05-30T10:23:06+08:00</updated>
+  <id>http://younggive.github.com/</id>
+  <author>
+    <name><![CDATA[Rowy]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Godaddy 80% Off]]></title>
+    <link href="http://younggive.github.com/blog/2013/03/17/new_domain/"/>
+    <updated>2013-03-17T22:12:00+08:00</updated>
+    <id>http://younggive.github.com/blog/2013/03/17/new_domain</id>
+    <content type="html"><![CDATA[<p>终于让我赶上了一回<a href="http://www.godaddy.com">Godaddy</a> 80% off，4刀拿下一个.us，因此空间又换了域名了。好处是这里终于腾出来了，这样blog和wiki可以放在一起弄了。看了一段时间，wiki考虑再用Jekyll单独搭一个。整个rowy.me将来会在VPS上搭建，包括响应式简历页面。Github Pages感觉还是怪怪的。</p>
+
+<p><img src="http://rowy.me/images/godaddydiscount.png" alt="" /></p>
+]]></content>
+  </entry>
+  
+</feed>

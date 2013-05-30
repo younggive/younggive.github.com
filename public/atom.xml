@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Place for knowledge]]></title>
-  <link href="http://wiki.rowy.me/atom.xml" rel="self"/>
-  <link href="http://wiki.rowy.me/"/>
-  <updated>2013-03-16T11:58:08+08:00</updated>
-  <id>http://wiki.rowy.me/</id>
+  <link href="http://younggive.github.com/atom.xml" rel="self"/>
+  <link href="http://younggive.github.com/"/>
+  <updated>2013-05-30T10:23:06+08:00</updated>
+  <id>http://younggive.github.com/</id>
   <author>
     <name><![CDATA[Rowy]]></name>
     
@@ -14,10 +14,124 @@
 
   
   <entry>
+    <title type="html"><![CDATA[Microsoft: MRS - Bing Grand Challenge]]></title>
+    <link href="http://younggive.github.com/blog/2013/03/18/microsoft%3A-mrs---bing-grand-challenge/"/>
+    <updated>2013-03-18T18:38:00+08:00</updated>
+    <id>http://younggive.github.com/blog/2013/03/18/microsoft:-mrs&#8212;bing-grand-challenge</id>
+    <content type="html"><![CDATA[<p><em>source:<a href="http://acmmm13.org/submissions/call-for-multimedia-grand-challenge-solutions/msr-bing-grand-challenge-on-image-retrieval-scientific-track/">http://acmmm13.org/submissions/call-for-multimedia-grand-challenge-solutions/msr-bing-grand-challenge-on-image-retrieval-scientific-track/</a></em></p>
+
+<h3>Grand Challenge on Image Retrieval: Scientific Track</h3>
+
+<p>The Second Microsoft Research (MSR)-Bing challenge (the “Challenge”) is organized into a dual track format, one scientific and the other industrial.  The two tracks share exactly the same task and timelines but independent submission and ranking processes.</p>
+
+<p>For the scientific track, we will follow exactly what MM13 GC outlines at <a href="http://acmmm13.org/submissions/call-for-multimedia-grand-challenge-solutions/">http://acmmm13.org/submissions/call-for-multimedia-grand-challenge-solutions/</a>.  The papers will be submitted to MM13, and go through the review process.  The accepted ones will be presented at the conference. At the conference, the authors of the accepted papers will be requested to introduce their solutions, give a quick demo, and take questions from the judges and the audience.  Winners will be selected for Multimedia Grand Challenge Award based on their presentation.</p>
+
+<p>The industrial track of the Challenge will be conducted over the internet through a website maintained by Microsoft. Contestants participating in the industrial track are encouraged to take advantage of the recent advancements in the cloud computing infrastructure and public datasets and must submit their entries in the form of publicly accessible REST-based web services (further specified below). Each entry will be evaluated against a test set created by Bing on queries received at Bing Image Search in the EN-US market. Due to the global nature of the Web the queries are not necessarily limited to the English language used in the United States. The details of the industrial track, including “Measurements and evaluation”, “Dataset”, “Submission” and “Awards” can be found <a href="http://web-ngram.research.microsoft.com/GrandChallenge/">here</a>.</p>
+
+<p>Note that the “Task” for the two tracks is the same, while the submission, evaluation and awards are different, as summarized in the table below.  Teams can participate in either or both of the tracks.</p>
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th> </th>
+<th>Task</th>
+<th> Measurements and evaluation </th>
+<th> Dataset </th>
+<th> Submission </th>
+<th> Awards </th>
+<th> </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td>Scientific Track</td>
+<td> See below  </td>
+<td> research impact </td>
+<td> Use entire or partial dataset </td>
+<td> To conference as a paper  </td>
+<td>  According to MM13 guidelines </td>
+<td> </td>
+</tr>
+<tr>
+<td></td>
+<td> Industrial Track </td>
+<td> See below </td>
+<td>  See Industrial track link  </td>
+<td> Use entire dataset </td>
+<td> See industrial track link  </td>
+<td> Ranked by measurements </td>
+<td></td>
+</tr>
+</tbody>
+</table>
+
+
+<h2>Task</h2>
+
+<p>The topic of the Challenge is web scale image retrieval. The contestants are asked to develop systems to assess the effectiveness of query terms in describing the images crawled from the web for image search purposes. A contesting system is asked to produce a floating-point score on each image-query pair that reflects how relevant the query could be used to describe the given image, with higher numbers indicating higher relevance. The dynamic range of the scores does not play a significant role so long as, for any query, sorting by its corresponding scores for all its associated images gives the best retrieval ranking for these images.</p>
+
+<h2>Dataset</h2>
+
+<p>The dataset for the Microsoft Image Grand Challenge on Image Retrieval can be downloaded <a href="http://web-ngram.research.microsoft.com/GrandChallenge/Datasets.aspx">here</a>.</p>
+
+<h2>Contact</h2>
+
+<p>Yong Rui,    <em>yongrui -at- microsoft.com</em><br/>
+Kuansan Wang,     <em>kuansan.wang -at- microsoft.com</em></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Godaddy 80% Off]]></title>
+    <link href="http://younggive.github.com/blog/2013/03/17/new_domain/"/>
+    <updated>2013-03-17T22:12:00+08:00</updated>
+    <id>http://younggive.github.com/blog/2013/03/17/new_domain</id>
+    <content type="html"><![CDATA[<p>终于让我赶上了一回<a href="http://www.godaddy.com">Godaddy</a> 80% off，4刀拿下一个.us，因此空间又换了域名了。好处是这里终于腾出来了，这样blog和wiki可以放在一起弄了。看了一段时间，wiki考虑再用Jekyll单独搭一个。整个rowy.me将来会在VPS上搭建，包括响应式简历页面。Github Pages感觉还是怪怪的。</p>
+
+<p><img src="http://rowy.me/images/godaddydiscount.png" alt="" /></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Octopress Useful Links]]></title>
+    <link href="http://younggive.github.com/blog/2013/03/16/octopress_links/"/>
+    <updated>2013-03-16T12:18:00+08:00</updated>
+    <id>http://younggive.github.com/blog/2013/03/16/octopress_links</id>
+    <content type="html"><![CDATA[<h1>Customiztation</h1>
+
+<ul>
+<li>3rd Party Octopress Themes<br/>
+<a href="https://github.com/imathis/octopress/wiki/3rd-Party-Octopress-Themes">https://github.com/imathis/octopress/wiki/3rd-Party-Octopress-Themes</a></li>
+</ul>
+
+
+<h1>Reference</h1>
+
+<ul>
+<li>Official Document <br/>
+<a href="http://octopress.org/docs/">http://octopress.org/docs/</a></li>
+<li>Sites using Octopress <br/>
+<a href="https://github.com/imathis/octopress/wiki/Octopress-Sites">https://github.com/imathis/octopress/wiki/Octopress-Sites</a></li>
+</ul>
+
+
+<h1>Others</h1>
+
+<ul>
+<li>A great personal wiki using Jekyll<br/>
+<a href="http://wiki.junnan.org/">http://wiki.junnan.org/</a></li>
+</ul>
+
+]]></content>
+  </entry>
+  
+  <entry>
     <title type="html"><![CDATA[Markdown + R]]></title>
-    <link href="http://wiki.rowy.me/blog/2013/03/16/markdown-plus-r/"/>
+    <link href="http://younggive.github.com/blog/2013/03/16/markdown-plus-r/"/>
     <updated>2013-03-16T10:51:00+08:00</updated>
-    <id>http://wiki.rowy.me/blog/2013/03/16/markdown-plus-r</id>
+    <id>http://younggive.github.com/blog/2013/03/16/markdown-plus-r</id>
     <content type="html"><![CDATA[<p>在<a href="http://www.v2ex.com">V2EX</a>社区看到了以前有人讨论过的用<code>Markdown+R</code>进行科技文章写作的方法。对Markdown的应用已经很熟悉了，但是R语言还很陌生。前几天在分析DTM提取topic model时现学了一点点R语言，感觉异常强大，也因此对<code>Markdown+R</code>这个组合代替LaTeX颇感兴趣。</p>
 
 <h1>Installation</h1>
@@ -27,10 +141,10 @@
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[my first blog]]></title>
-    <link href="http://wiki.rowy.me/blog/2013/03/15/my-first-blog/"/>
+    <title type="html"><![CDATA[在Github Pages上使用Octopress]]></title>
+    <link href="http://younggive.github.com/blog/2013/03/15/my-first-blog/"/>
     <updated>2013-03-15T21:05:00+08:00</updated>
-    <id>http://wiki.rowy.me/blog/2013/03/15/my-first-blog</id>
+    <id>http://younggive.github.com/blog/2013/03/15/my-first-blog</id>
     <content type="html"><![CDATA[<p>本来是想折腾一个个人技术wiki的，结果不小心看上了Octopress。之前就在Lucifr的个人博客上看到他各种折腾Octopress，现在先用一段看看。</p>
 
 <p>因为在自己的Godaddy空间上折腾ruby， octopress， git之类的太麻烦，因为尝试了一下很流行的在github pages上部署octopress的方法。具体方法其实Octopress官网的文档介绍的很清楚，详见<a href="http://octopress.org/docs/deploying/github/">Deploying to Github Pages</a></p>
@@ -41,7 +155,7 @@
 
 <p>在Github上新建一个repository，名字就是<code>username.github.com</code>，username即Github用户名，然后保存为master branch。这样几分钟后，在浏览器访问这个域名即可。</p>
 
-<p>img http://younggive.github.com/images/githubpage_initial.png</p>
+<p><img src="http://younggive.github.com/images/githubpage_initial.png" alt="" /></p>
 
 <p>至此，Github Pages初始配置完成。</p>
 
@@ -82,7 +196,10 @@ bundle install
 <pre><code>rake setup_github_pages
 </code></pre>
 
-<p>这个命令将询问你Github Pages repository的url，按照提示信息的格式输入。</p>
+<p>这个命令将询问你Github Pages repository的url，按照提示信息的格式:<br/>
+&#8220;git@github.com:username/username.github.com.git&#8221;</p>
+
+<p>当这个命令运行完成之后，你的github pages repo会有两个branches: master branch用于静态页面的发布(&#8220;my_blog/<em>deploy&#8221;的内容)，source branch用于保存你的blog内容（&#8221;my_blog&#8221;目录中除了&#8221;</em>deploy&#8221;的其它内容）</p>
 
 <p>下一步运行：</p>
 
